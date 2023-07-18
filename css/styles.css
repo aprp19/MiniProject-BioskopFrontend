@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Warp&display=swap");
+
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background-color: whitesmoke;
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+    padding: 2rem;
+}
+
+
+/*Top Navigation*/
+.topnav {
+    background-color: white;
+    display: flex;
+    overflow: hidden;
+    position: sticky;
+    align-items: center;
+    padding: 0 100px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.topnav a {
+    float: right;
+    display: flex;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 24px;
+    align-items: center;
+}
+
+.topnav a:hover {
+    color: gold;
+}
+
+.topnav .links {
+    display: block;
+    margin-top: 14px;
+    /*margin: 20px;*/
+}
+
+.topnav a.split {
+    font-family: 'Tilt Warp', cursive;
+    font-weight: normal;
+    font-size: 50px;
+}
+
+.topnav a.split:hover {
+    color: black;
+}
+
+.topnav span:hover {
+    color: gold;
+}
+
+/*Slider*/
+
+.slider-wrapper {
+    position: relative;
+    max-width: 100rem;
+    margin: 0 auto;
+}
+
+.slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+    border-radius: 0.5rem;
+    -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.slider::-webkit-scrollbar {
+    display: none;
+}
+
+.slider img {
+    flex: 1 0 25%;
+    width: 20%;
+    height: 700px;
+    scroll-snap-align: start;
+    object-fit: cover;
+}
+
+.slider-nav {
+    display: flex;
+    column-gap: 1rem;
+    position: absolute;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.slider-nav a {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.75;
+    transition: opacity ease 250ms;
+}
+
+.slider-nav a:hover {
+    background-color: gold;
+    opacity: 1;
+}
