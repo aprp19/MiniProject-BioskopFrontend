@@ -100,8 +100,14 @@ body {
     flex: 1 0 25%;
     width: 20%;
     height: 700px;
+    padding: 1px;
+    transition: transform .2s;
     scroll-snap-align: start;
     object-fit: cover;
+}
+
+.slider img:hover {
+    transform: scale(0.9);
 }
 
 .slider-nav {
