@@ -22,6 +22,8 @@ body {
     display: flex;
     overflow: hidden;
     position: sticky;
+    top: 0;
+    z-index: 10;
     align-items: center;
     padding: 0 100px;
     width: 100%;
@@ -132,4 +134,145 @@ body {
 .slider-nav a:hover {
     background-color: gold;
     opacity: 1;
+}
+
+.footer{
+    color: gray;
+    background: white;
+    padding:30px 0;
+    font-family: 'Play', sans-serif;
+    text-align:center;
+}
+
+.footer .logo{
+    font-weight: bold;
+    font-size: 3em;
+}
+
+.footer .row{
+    width:100%;
+    padding: 10px 0;
+    color:gray;
+    font-size:0.8em;
+}
+
+.footer .row a{
+    text-decoration:none;
+    color: gray;
+    transition:0.5s;
+}
+
+.footer .row a:hover{
+    color: black;
+}
+
+.footer .row ul{
+    width: 100%;
+}
+
+.footer .row ul li{
+    display:inline-block;
+    margin: 0 30px;
+}
+
+.footer .row a i{
+    font-size:2em;
+    margin: 0 1%;
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 100%;
+    margin-top: 10%;
+    padding: 20px;
+}
+
+#formContent {
+    border-radius: 10px 10px 10px 10px;
+    background: #fff;
+    padding: 20px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+#formFooter {
+    /*background-color: #f6f6f6;*/
+    border-top: 1px solid #dce8f1;
+    padding: 25px;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+
+#formFooter .login-button {
+    text-decoration: none;
+    color: black;
+    padding: 5px 15px;
+    border-radius: 5px;
+
+    background: linear-gradient(to left, white 50%, black 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+}
+
+#formFooter .login-button:hover {
+    background-position: left;
+    color: gold;
+}
+
+input[type=button], input[type=submit], input[type=reset]  {
+    border: none;
+    color: black;
+    padding: 15px 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-radius: 5px;
+    margin: 20px 40px;
+    font-weight: bold;
+
+    background: linear-gradient(to left, white 50%, black 50%) right;
+    background-size: 200%;
+    transition: .5s ease-out;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    background-position: left;
+    color: white;
+    font-weight: bold;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    transform: scale(0.95);
+}
+
+input[type=text] {
+    background-color: #f6f6f6;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    border-radius: 5px 5px 5px 5px;
+}
+
+input[type=text]:focus {
+    background-color: #fff;
+    /*border-bottom: 2px solid #5fbae9;*/
+}
+
+input[type=text]::placeholder {
+    color: #cccccc;
 }
