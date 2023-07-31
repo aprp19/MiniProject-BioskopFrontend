@@ -226,7 +226,7 @@ body {
     color: gold;
 }
 
-input[type=button], input[type=submit], input[type=reset]  {
+.button {
     border: none;
     color: black;
     padding: 15px 80px;
@@ -244,13 +244,13 @@ input[type=button], input[type=submit], input[type=reset]  {
     transition: .5s ease-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+.button:hover  {
     background-position: left;
-    color: white;
+    color: gold;
     font-weight: bold;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+.button:active  {
     transform: scale(0.95);
 }
 
@@ -276,3 +276,123 @@ input[type=text]:focus {
 input[type=text]::placeholder {
     color: #cccccc;
 }
+/**/
+@keyframes spin {
+    from {
+        transform: rotate(0deg); }
+    to {
+        transform: rotate(-359deg); } }
+
+@keyframes center-spin {
+    from {
+        transform: rotate(0deg) translate(-50%, -50%); }
+    to {
+        transform: rotate(-359deg) translate(-50%, -50%); } }
+
+.alert {
+    display: none;
+    background: #fff;
+    border-radius: 3px;
+    color: #777;
+    font-weight: 100;
+    left: 50%;
+    max-width: calc(100% - 30px);
+    min-width: 300px;
+    padding: 30px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    z-index: 1055; }
+.alert-overlay {
+    display: none;
+    background: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1050; }
+.alert > .icon {
+    border-radius: 999px;
+    display: block;
+    height: 70px;
+    margin: 0 auto 15px;
+    position: relative;
+    transition: .3s;
+    width: 70px; }
+.alert > .icon:after, .alert > .icon:before {
+    content: '';
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s; }
+.alert > .head {
+    font-size: 1.7em;
+    margin-bottom: 15px; }
+.alert > .body {
+    color: #aaa;
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin-bottom: 30px; }
+.alert > .footer {
+    margin: 0-"30px"-30px;
+    width: auto; }
+.alert > .footer > .actions {
+    display: table;
+    width: 100%; }
+.alert > .footer > .actions > a, .alert > .footer > .actions button {
+    color: #aaa;
+    cursor: pointer;
+    display: table-cell;
+    padding: 15px 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    user-select: none;
+    width: 1%; }
+.alert > .footer > .actions > a:hover, .alert > .footer > .actions button:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #777; }
+.alert > .footer > .actions > a:active, .alert > .footer > .actions > a:focus, .alert > .footer > .actions button:active, .alert > .footer > .actions button:focus {
+    background: rgba(0, 0, 0, 0.1); }
+.alert.loading > .icon {
+    animation: spin 1s linear infinite; }
+.alert.loading > .icon:after, .alert.loading > .icon:before {
+    border-radius: 999px;
+    height: 100%;
+    width: 100%; }
+.alert.loading > .icon:before {
+    border: 4px solid rgba(51, 122, 183, 0.3);
+    border-top-color: transparent; }
+.alert.success > .icon:before {
+    border: 4px solid rgba(0, 204, 51, 0.3);
+    border-radius: 999px;
+    height: 100%;
+    width: 100%; }
+.alert.success > .icon:after {
+    border-bottom: 4px solid rgba(0, 204, 51, 0.3);
+    border-left: 4px solid rgba(0, 204, 51, 0.3);
+    height: 10px;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 25px; }
+.alert.success > .head {
+    color: rgba(0, 204, 51, 0.3);
+    font-weight: 900; }
+.alert.error > .icon {
+    border: 4px solid rgba(238, 51, 51, 0.3);
+    border-radius: 999px; }
+.alert.error > .icon:before, .alert.error > .icon:after {
+    background: rgba(238, 51, 51, 0.3);
+    border-radius: 3px;
+    height: 4px;
+    width: calc(100% - 15px); }
+.alert.error > .icon:after {
+    transform: translate(-50%, -50%) rotate(-45deg); }
+.alert.error > .icon:before {
+    transform: translate(-50%, -50%) rotate(45deg); }
+.alert.error > .head {
+    color: rgba(238, 51, 51, 0.3);
+    font-weight: 900; }

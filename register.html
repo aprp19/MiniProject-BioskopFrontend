@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="topnav">
+  <a href="index.html" class="split"><span class="logo" style="font-weight: bold;">Virtual</span><span>Cinema</span></a>
+  <div class="links">
+    <a href="index.html" target="main-iframe">Home</a>
+  </div>
+</div>
+<div class="login-wrapper">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2> Sign Up </h2>
+    <!-- Login Form -->
+      <label for="name"></label><input type="text" id="name" name="name" placeholder="Name">
+      <label for="username"></label><input type="text" id="username" name="username" placeholder="username">
+      <label for="password"></label><input type="text" id="password" name="password" placeholder="Password">
+    <button class="signup button">Sign Up</button>
+  </div>
+</div>
+
+<div class="alert-overlay" id="alert-bg"></div>
+<div class="alert loading" id="alert">
+  <div class="icon"></div>
+  <div class="head">Registering...</div>
+</div>
+
+
+<script>
+  const btn = document.querySelector('.signup');
+  const modal_bg = document.getElementById('alert-bg');
+  const modal = document.getElementById('alert');
+
+  btn.addEventListener('click', function () {
+    modal_bg.style.display = 'block';
+    modal.style.display = 'block';
+
+    let data = {};
+    data.u_name = document.getElementById('name').value;
+    data.u_username = document.getElementById('username').value;
+    data.u_password = document.getElementById('password').value;
+    console.log(data);
+
+    fetch('http://localhost:5000/account/register', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+            .then(function (response) {
+              if (response.status === 200) {
+                $('.alert').removeClass('loading error success', false).addClass('success');
+                $('.head').text('Success');
+                $(modal).delay(2000).fadeOut(1000);
+                $(modal_bg).delay(2000).fadeOut(1000);
+                  response.json().then(function (response) {
+                      console.log(response);
+                  });
+              }
+              else {
+                $('.alert').removeClass('loading error success', false).addClass('error');
+                $(modal).delay(2000).fadeOut(1000);
+                $(modal_bg).delay(2000).fadeOut(1000);
+                $('.head').text('Failed');
+                throw Error ('Something went wrong!');
+              }
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+  });
+  //
+  // $(function (){
+  //   $('body'). on('click', '.alert a', function (ev){
+  //     ev.preventDefault();
+  //     a = $(this).attr('href');
+  //     a = a.replace('#', '');
+  //
+  //     $('.alert').removeClass('loading error success', false);
+  //     $('.alert').addClass(a);
+  //   });
+  // });
+</script>
+</body>
+</html>
