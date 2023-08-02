@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="topnav">
-    <a href="#" class="split"><span class="logo" style="font-weight: bold;">Virtual</span><span>Cinema</span></a>
+    <a href="index.html" class="split"><span class="logo" style="font-weight: bold;">Virtual</span><span>Cinema</span></a>
     <div class="links">
         <a href="index.html" target="main-iframe">Home</a>
     </div>
@@ -19,9 +19,11 @@
         <h2> Sign In </h2>
         <!-- Login Form -->
         <form>
-            <label for="login"></label><input type="text" id="login" name="login" placeholder="E-mail">
-            <label for="password"></label><input type="text" id="password" name="login" placeholder="Password">
-            <input type="submit" class="button" value="Log In">
+            <label for="username"></label><input type="text" id="username" name="username" placeholder="Username">
+            <label for="password"></label><input type="text" id="password" name="password" placeholder="Password">
+            <label>
+                <input type="button" class="signup button" value="Log In">
+            </label>
         </form>
         <!-- Remind Password -->
         <div id="formFooter">
@@ -30,5 +32,13 @@
         </div>
     </div>
 </div>
+
+<div class="alert-overlay" id="alert-bg"></div>
+<div class="alert loading" id="alert">
+    <div class="icon"></div>
+    <div class="head">Registering...</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>
