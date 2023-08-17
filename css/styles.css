@@ -396,3 +396,308 @@ input[type=text]::placeholder {
 .alert.error > .head {
     color: rgba(238, 51, 51, 0.3);
     font-weight: 900; }
+
+/*Movie List Card Image*/
+
+.card-image {
+    display: block;
+    min-height: 20rem; /* layout hack */
+    background: #fff center center no-repeat;
+    background-size: cover;
+    filter: blur(3px); /* blur the lowres image */
+}
+
+.card-image > img {
+    display: block;
+    width: 100%;
+    opacity: 0; /* visually hide the img element */
+}
+
+.card-image.is-loaded {
+    filter: none; /* remove the blur on fullres image */
+    transition: filter 1s;
+}
+
+/* Layout Styles */
+
+.card-list {
+    display: block;
+    margin: 1rem auto;
+    padding: 0;
+    font-size: 0;
+    text-align: center;
+    list-style: none;
+}
+
+.card {
+    display: inline-block;
+    width: 90%;
+    max-width: 20rem;
+    margin: 1rem;
+    font-size: 1rem;
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 0 3rem -1rem rgba(0,0,0,0.5);
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s;
+}
+
+.card:hover {
+    transform: translateY(-0.5rem) scale(1.0125);
+    box-shadow: 0 0.5em 3rem -1rem rgba(0,0,0,0.5);
+}
+
+.card-description {
+    display: block;
+    height: 150px;
+    padding: 1em 0.5em;
+    color: #515151;
+    text-decoration: none;
+}
+
+.card-description > h2 {
+    margin: 0 0 0.5em;
+}
+
+.card-description > p {
+    margin: 0;
+}
+
+/*Movies CSS*/
+
+.bg h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 2.4rem;
+}
+
+.bg h3 {
+    font-size: 1.73rem;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+}
+
+.bg p {
+    font-size: 1.6rem;
+    height: 15rem;
+}
+.bg a {
+    color: black;
+}
+
+.bg {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width: 100%;
+    height: 53rem;
+}
+.content {
+    display:flex;
+    width: 100rem;
+    height:51rem
+}
+.image {
+    width: 30rem;
+
+}
+.info {
+    color: black;
+    width:700rem;
+    background-color:white;
+    padding: 0.1rem 2rem;
+}
+.title {
+    padding-bottom: 1rem
+}
+.title a h2 {
+    display:inline-block;
+    font-size: 3.84rem;
+    color:black;
+}
+.title span {
+    opacity: 0.6;
+    font-size: 2.72rem;
+    font-weight: 400;
+}
+
+.about {
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/*Booking Modal*/
+
+.modal-window {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+.modal-window:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-window > div {
+    /*width: 800px;*/
+    max-width: 770px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: white;
+}
+.modal-window header {
+    font-weight: bold;
+}
+.modal-window h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+}
+.modal-close {
+    color: #aaa;
+    line-height: 50px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 70px;
+    text-decoration: none;
+}
+.modal-close:hover {
+    color: black;
+}
+
+/*Select Schedule*/
+.select-schedule {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+    justify-content: space-between;
+}
+
+.method {
+    display: flex;
+    /*flex-direction: column;*/
+    width: 382px;
+    height: 100px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background-color: rgb(249, 249, 249);
+    justify-content: center;
+    align-items: center;
+}
+
+.select-schedule .detail {
+    display: grid;
+    width: 200px;
+}
+
+.radio-input {
+    margin-top: 20px;
+}
+
+input[type='radio'] {
+    display: inline-block;
+}
+.blue-border {
+    border: 1px solid rgb(110, 178, 251);
+}
+
+/*Seat*/
+
+.container {
+    padding: 20px;
+    perspective: 500px;
+
+}
+#select {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}
+.seat-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    padding: 5px;
+    width: 280px;
+    margin: 20px auto;
+}
+.seat-detail {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+.seat-detail .seat {
+    margin-right: 10px;
+}
+
+.seat {
+    display: inline-block;
+    background-color: darkgoldenrod;
+    height: 20px;
+    width: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+.seat.occupied {
+    background-color: grey;
+}
+.seat.selected {
+    background-color: gold;
+}
+.seat:not(.occupied):hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.seats-container {
+    display: block;
+    margin: auto auto 20px;
+    max-width: 17rem;
+    text-align: center;
+}
+
+.row .seat {
+    margin: 0.3rem;
+}
+
+.seat-details .seat:hover {
+    transform: scale(1);
+    cursor: default;
+}
+
+.movie-pricing {
+    display: inline;
+}
+.movie-pricing span {
+    color: #90e0ef;
+}
+
+.screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto 20px;
+    background-color: whitesmoke;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.5);
+    transform: rotateX(-30deg);
+}

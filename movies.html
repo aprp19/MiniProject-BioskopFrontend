@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div class="topnav">
+  <a href="index.html" class="split"><span class="logo" style="font-weight: bold;">Virtual</span><span>Cinema</span></a>
+  <div class="links">
+    <a href="login.html" id="login-button">Login</a>
+    <a href="dashboard-user.html">Dashboard</a>
+    <a href="movielist.html">Movie List</a>
+    <a href="index.html">Home</a>
+  </div>
+</div>
+<section class="bg" id="movie">
+<!-- JS -->
+</section>
+
+<div id="schedule-modal" class="modal-window">
+  <div>
+    <a href="#" title="Close" class="modal-close">Close</a>
+    <h1>Booking Detail</h1>
+    <h3>Select Date</h3>
+    <br>
+    <div class="select-schedule" id="schedule">
+<!--   JS   -->
+    </div>
+    <a href="#seat-modal"> <button class="button signup" style="float: right" onclick="Seat()">Next</button></a>
+  </div>
+</div>
+
+<div id="seat-modal" class="modal-window">
+  <div>
+    <a href="#" title="Close" class="modal-close">Close</a>
+    <div class="container">
+      <ul class="seat-details">
+        <li class="seat-detail">
+          <div class="seat"></div>
+          <small>Available</small>
+        </li>
+        <li class="seat-detail">
+          <div class="seat selected"></div>
+          <small>Selected</small>
+        </li>
+        <li class="seat-detail">
+          <div class="seat occupied"></div>
+          <small>Occupied</small>
+        </li>
+      </ul>
+      <div class="screen">SCREEN</div>
+      <div class="seats-container">
+        <div class="row" id="seating">
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat occupied"></div>-->
+<!--          <div class="seat occupied"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+        </div>
+<!--        <div class="row">-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat occupied"></div>-->
+<!--          <div class="seat occupied"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--          <div class="seat"></div>-->
+<!--        </div>-->
+      </div>
+      <div class="movie-pricing">
+        Selected Seats: <span class="allSeats">0</span><br>
+        Price: Rp.
+        <span class="amount">0</span>
+        <a href="#seat-modal"> <button class="button signup" style="float: right" onclick="Seat()">Next</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer">
+    <div class="row">
+      <div class="logo">Virtual<span style="font-weight: normal">Cinema</span></div>
+    </div>
+
+    <div class="row">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Movie List</a></li>
+        <li><a href="#">Account</a></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      VirtualCinema Copyright © 2023 - Angga Puja Restu Prakasa
+    </div>
+  </div>
+</footer>
+<div id="demo"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/movies.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
+</body>
+</html>

@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 <div class="topnav">
     <a href="index.html" class="split"><span class="logo" style="font-weight: bold;">Virtual</span><span>Cinema</span></a>
     <div class="links">
-        <a href="login.html" target="main-iframe">Login</a>
+        <a href="login.html" id="login-button">Login</a>
         <!--        <a href="#" target="main-iframe">Account</a>-->
-        <a href="movielist.html" target="main-iframe">Movie List</a>
-        <a href="index.html" target="main-iframe">Home</a>
+        <a href="movielist.html">Movie List</a>
+        <a href="index.html">Home</a>
     </div>
 </div>
-<h1 style="padding-left: 10rem">Now Playing</h1>
+<h1 style="padding-left: 10rem">Movie List</h1>
 <section class="container">
-    
+    <ul class="card-list" id="card-container">
+
+    </ul>
 </section>
 
 <footer>
@@ -41,5 +42,7 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript" src="js/movielist.js"></script>
+<script type="text/javascript" src="js/global.js"></script>
 </body>
 </html>
