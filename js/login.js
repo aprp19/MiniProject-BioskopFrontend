@@ -20,17 +20,17 @@ btn.addEventListener('click', function () {
     }
     data.u_name = document.getElementById('username').value;
     data.u_password = document.getElementById('password').value;
+    const token = btoa(data.u_name + ':' + data.u_password);
+    localStorage.setItem('token', token);
 
     fetch('http://localhost:5000/account/login', {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + btoa(data.u_name + ':' + data.u_password)
+            'Authorization': 'Basic ' + token
         }
     })
         .then(response => {
             if (response.status === 200) {
-                localStorage.setItem('token', btoa(data.username + ':' + data.password));
-                console.log(localStorage.getItem('token'));
                 $('.alert').removeClass('loading error success', false).addClass('success');
                 $('.head').text('Success');
                 $(modal).delay(2000).fadeOut(1000);
@@ -44,6 +44,7 @@ btn.addEventListener('click', function () {
                 $(modal).delay(2000).fadeOut(1000);
                 $(modal_bg).delay(2000).fadeOut(1000);
                 $('.head').text('Wrong Username/Password');
+                localStorage.removeItem('token');
                 return response.json();
             }
         }). then(response => {
