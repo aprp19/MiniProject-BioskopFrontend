@@ -224,11 +224,15 @@ order.addEventListener('click', function () {
                                     confirmButtonText: 'Payment Page'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        Swal.fire(
-                                            'Deleted!',
-                                            'Your file has been deleted.',
-                                            'success'
-                                        )
+                                        sessionStorage.clear();
+                                        document.getElementById('seating').innerHTML = ''
+                                        let radioButtons = document.getElementById('radio-button');
+                                        radioButtons.checked = false;
+                                        const allSeats = document.querySelectorAll(".row .seat.selected");
+                                        allSeats.forEach((seat) => {
+                                            seat.classList.remove("selected");
+                                        })
+                                        window.location.href = 'Dashboard/html/dashboard-user.html';
                                     } else {
                                         window.location.href = '#';
                                         sessionStorage.clear();

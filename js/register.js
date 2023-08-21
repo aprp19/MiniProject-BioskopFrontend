@@ -26,7 +26,7 @@ btn.addEventListener('click', function () {
                 $(modal).delay(2000).fadeOut(1000);
                 $(modal_bg).delay(2000).fadeOut(1000);
                 response.json().then(function (response) {
-                    console.log(response);
+                    window.location.href = 'login.html';
                 });
             }
             else {
