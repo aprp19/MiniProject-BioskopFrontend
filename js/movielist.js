@@ -8,7 +8,7 @@ fetchJSON()
         const carousel = json['Data'].map((card)=>{
             return ` <li class="card">
                 <a class="card-image" href="#" style="background-image: url(${card.film_poster}); height: 500px" onclick="selectMovie('${card.film_id}')">
-                    <img src="${card.film_poster}" alt="${card.film_name}" loading="lazy"/>
+                    <img src="${card.film_poster}" alt="${card.film_name}"/>
                 </a>
                 <a class="card-description" href="#">
                     <h2>${card.film_name}</h2>

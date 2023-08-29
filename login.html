@@ -20,9 +20,9 @@
         <!-- Login Form -->
         <form>
             <label for="username"></label><input type="text" id="username" name="username" placeholder="Username">
-            <label for="password"></label><input type="text" id="password" name="password" placeholder="Password">
+            <label for="password"></label><input type="password" id="password" name="password" placeholder="Password">
             <label>
-                <input type="button" class="signup button" value="Log In">
+                <input type="button" class="button" value="Log In" id="loginBtn">
             </label>
         </form>
         <!-- Remind Password -->
@@ -33,12 +33,13 @@
     </div>
 </div>
 
-<div class="alert-overlay" id="alert-bg"></div>
-<div class="alert loading" id="alert">
-    <div class="icon"></div>
-    <div class="head">Login...</div>
-</div>
+<!--<div class="alert-overlay" id="alert-bg"></div>-->
+<!--<div class="alert loading" id="alert">-->
+<!--    <div class="icon"></div>-->
+<!--    <div class="head">Login...</div>-->
+<!--</div>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>

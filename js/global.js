@@ -5,9 +5,15 @@ async function checkUser(){
 checkUser()
     .then(function (token){
         let login = document.getElementById('login-button');
+        const auth = localStorage.getItem('auth');
         if (token) {
-            login.innerHTML = 'Dashboard';
-            login.setAttribute('href', 'Dashboard/html/dashboard.html');
+            if (auth === 'Admin'){
+                login.innerHTML = 'Dashboard';
+                login.setAttribute('href', 'Dashboard/html/dashboard-admin.html');
+            } else {
+                login.innerHTML = 'Dashboard';
+                login.setAttribute('href', 'Dashboard/html/dashboard-user.html');
+            }
         } else {
             login.innerHTML = 'Login';
             login.setAttribute('href', 'login.html');

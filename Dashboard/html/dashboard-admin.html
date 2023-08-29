@@ -27,12 +27,11 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
   />
 
-  <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+  <title>Admin Dashboard</title>
 
   <meta name="description" content="" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -49,6 +48,7 @@
   <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
   <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
   <link rel="stylesheet" href="../assets/css/demo.css" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
@@ -118,10 +118,8 @@
     <div class="layout-page">
       <!-- Navbar -->
 
-      <nav
-              class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
-              id="layout-navbar"
-      >
+      <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+              id="layout-navbar">
         <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
           <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
             <i class="bx bx-menu bx-sm"></i>
@@ -161,8 +159,8 @@
                         </div>
                       </div>
                       <div class="flex-grow-1">
-                        <span class="fw-semibold d-block" id="username">John Doe</span>
-                        <small class="text-muted" id="user-role">Admin</small>
+                        <span class="fw-semibold d-block" id="username">User Name</span>
+                        <small class="text-muted" id="user-role">Role</small>
                       </div>
                     </div>
                   </a>
@@ -193,51 +191,163 @@
 
           <div class="row">
             <!-- Table -->
-            <div class="order-2 mb-4">
+            <div class="order-2 mb-4 col-md-6">
               <div class="card">
-                <h5 class="card-header">Orders</h5>
-                <div class="table-responsive text-nowrap">
+                <h5 class="card-header">Users List</h5>
+                <div class="table-responsive text-nowrap overflow-auto" style="height: 19.7rem">
                   <table class="table">
                     <thead>
                     <tr>
+                      <th>User ID</th>
+                      <th>Name</th>
+                      <th>Username</th>
+                      <th>Role</th>
+                      <th>Wallet</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="user-table">
+                    <!--                    JS-->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-2 mb-4 col-md-6">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Category List</h5>
+                  <button type="button" class="btn rounded-pill btn-primary float-end" onclick="addCategory()">
+                    <span class="tf-icons bx bx-plus"></span>&nbsp; Add Category
+                  </button>
+                </div>
+                <div class="table-responsive text-nowrap overflow-auto" style="height: 18.5rem">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Category ID</th>
+                      <th>Category</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="category-table">
+                    <!--                    JS-->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-2 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Film List</h5>
+                  <button type="button" class="btn rounded-pill btn-primary float-end" onclick="addFilm()">
+                    <span class="tf-icons bx bx-plus"></span>&nbsp; Add Film
+                  </button>
+                </div>
+                <div class="table-responsive text-nowrap overflow-auto" style="max-height: 50rem">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Film ID</th>
+                      <th>Poster</th>
+                      <th>Name</th>
+                      <th>Description</th>
+                      <th>Category</th>
+                      <th>Duration</th>
+                      <th>Price</th>
+                      <th>Selling</th>
+                      <th>Posters Path</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="film-table">
+                    <!--                    JS-->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-2 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Schedule List</h5>
+                  <button type="button" class="btn rounded-pill btn-primary float-end" onclick="addSchedule()">
+                    <span class="tf-icons bx bx-plus"></span>&nbsp; Add Schedule
+                  </button>
+                </div>
+                <div class="table-responsive text-nowrap overflow-auto" style="max-height: 50rem">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Schedule ID</th>
+                      <th>Name</th>
+                      <th>Date & Time</th>
+                      <th>Studio</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" id="schedule-table">
+                    <!--                    JS-->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="order-2 mb-4">
+              <div class="card">
+                <h5 class="card-header">Orders List</h5>
+                <div class="table-responsive text-nowrap overflow-auto" style="max-height: 50rem">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th>Username</th>
                       <th>Movies</th>
                       <th>Date & Time</th>
                       <th>Studio</th>
                       <th>Seats</th>
                       <th>Status</th>
-                      <th>Payment</th>
                       <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody class="table-border-bottom-0" id="order-table">
-<!--                    JS-->
+                    <!--                    JS-->
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
+
             <div class="order-2 mb-4">
               <div class="card">
-                <h5 class="card-header">Tickets</h5>
-                <div class="table-responsive text-nowrap">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Reporting: Top 5 Film Selling</h5>
+                </div>
+                <div class="table-responsive text-nowrap overflow-auto" style="max-height: 50rem">
                   <table class="table">
                     <thead>
                     <tr>
-                      <th>Movies</th>
-                      <th>Date & Time</th>
-                      <th>Studio</th>
-                      <th>Seats</th>
-                      <th>Status</th>
-                      <th>Actions</th>
+                      <th>Film ID</th>
+                      <th>Poster</th>
+                      <th>Name</th>
+                      <th>Total Selling</th>
                     </tr>
                     </thead>
-                    <tbody class="table-border-bottom-0" id="ticket-table">
-<!--                    JS-->
+                    <tbody class="table-border-bottom-0" id="reporting-table">
+                    <!--                    JS-->
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
+
+
             <!--/ Table -->
 
           </div>
@@ -285,9 +395,11 @@
 
 <!-- Main JS -->
 <script src="../assets/js/main.js"></script>
-<script src="../../js/dashboard/dashboard-user.js"></script>
+<script src="../../js/dashboard/dashboard-admin.js"></script>
 <script src="../../js/dashboard/dashboard-global.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../../js/jquery-ui-1.13.2/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <!-- Page JS -->
 <script src="../assets/js/dashboards-analytics.js"></script>

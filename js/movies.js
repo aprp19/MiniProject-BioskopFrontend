@@ -1,3 +1,5 @@
+let filmPrice
+
 async function MovieDetail(){
     const response = await fetch(`http://localhost:5000/film/${localStorage.getItem('selectedFilmId')}`);
     return await response.json();
@@ -8,33 +10,40 @@ async function MovieSchedule(){
     return await response.json();
 }
 
-function SaveSchedule(selectedSchedule){
+function SaveSchedule(selectedSchedule, selectedPrice){
     sessionStorage.setItem('selectedSchedule', JSON.stringify(selectedSchedule));
+    filmPrice = selectedPrice
     console.log(sessionStorage.getItem('selectedSchedule'));
 }
 
 MovieSchedule()
     .then(function (json){
-        for (let i = 0; i < json['Data'].length; i++){
-            let id_schedule = json['Data'][i].id_schedule;
-            let schedule_date = json['Data'][i].schedule_date;
-            let schedule_time = json['Data'][i].schedule_time;
-            let schedule_studio = json['Data'][i].schedule_studio;
-            document.getElementById("schedule").innerHTML += `
-            <label for="${id_schedule}" class="method card">
+        const date = new Date();
+        let currentDay= String(date.getDate()).padStart(2, '0');
+        let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+        let currentYear = date.getFullYear();
+// we will display the date as DD-MM-YYYY
+        let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
+
+        const scheduleMap = json['Data'].map((schedule)=>{
+            if (schedule.schedule_date >= currentDate){
+                return `
+           <label for="${schedule.id_schedule}" class="method card">
         <div class="detail">
-        <span>Date: ${schedule_date}</span>
-        <span>Time: ${schedule_time}</span>
-        <span>Studio: ${schedule_studio}</span>
+        <span>Date: ${schedule.schedule_date}</span>
+        <span>Time: ${schedule.schedule_time}</span>
+        <span>Studio: ${schedule.schedule_studio}</span>
         </div>
 
         <div class="radio-input">
-          <input id="radio-button" value="${id_schedule}" onclick="SaveSchedule(${id_schedule})" type="radio" name="schedule-id">
+          <input id="radio-button" value="${schedule.id_schedule}" onclick="SaveSchedule(${schedule.id_schedule},${schedule.schedule_price})" type="radio" name="schedule-id">
           Select
         </div>
       </label>
             `
-        }
+            }
+        })
+        document.getElementById("schedule").innerHTML = scheduleMap.join("");
     })
 
 MovieDetail()
@@ -124,7 +133,7 @@ chooseSeats.addEventListener('click', function () {
             const selectedSeatsContainer = document.querySelector(".allSeats");
             const totalAmountContainer = document.querySelector(".amount");
 
-            let moviePrice = 45000;
+            let moviePrice = filmPrice;
 
             const updateUi = (selectedAmount) => {
                 const allSeats = document.querySelectorAll(".row .seat.selected");
@@ -184,7 +193,6 @@ chooseSeats.addEventListener('click', function () {
 order.addEventListener('click', function () {
     if (localStorage['token']) {
         const selectedSeats = JSON.parse(sessionStorage.getItem('selectedIndexs'));
-        console.log(selectedSeats)
         if (selectedSeats.length > 0) {
             Swal.fire({
                 title: 'Confirming Order ?',
@@ -200,8 +208,6 @@ order.addEventListener('click', function () {
                         "order_seat": selectedSeats
                     }
 
-                    console.log(data)
-
                     fetch('http://localhost:5000/orders', {
                         method: 'POST',
                         headers: {
@@ -211,9 +217,7 @@ order.addEventListener('click', function () {
                         body: JSON.stringify(data)
                     })
                         .then(response => {
-
                             if (response.status === 200) {
-                                console.log(response)
                                 Swal.fire({
                                     title: 'Order Confirmed!',
                                     text: "Go to payment page to pay?",

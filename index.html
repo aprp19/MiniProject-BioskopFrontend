@@ -20,13 +20,25 @@
 <section class="container">
     <div class="slider-wrapper">
         <div class="slider" id="img-slider">
-
+<!--            JS-->
         </div>
-        <div class="slider-nav">
-            <a href="#slide-1"></a>
-            <a href="#slide-5"></a>
+        <div class="slider-nav" id="slider-nav">
+<!--            JS-->
         </div>
     </div>
+</section>
+
+<h1 style="padding-left: 10rem">Schedule</h1>
+<section class="container" style="background-color: white">
+    <div class="search-bar">
+        <input type="search" name="search" pattern=".*\S.*" id="searchDate" required>
+        <button class="search-btn" onclick="searchDate()" id="search-btn" type="submit">
+            <span>Search</span>
+        </button>
+    </div>
+    <ul class="card-list" id="card-container">
+        <!--JS-->
+    </ul>
 </section>
 
 <footer>

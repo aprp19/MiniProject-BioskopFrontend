@@ -1,6 +1,4 @@
-const btn = document.querySelector('.signup');
-const modal_bg = document.getElementById('alert-bg');
-const modal = document.getElementById('alert');
+const btn = document.getElementById('loginBtn');
 
 async function alreadyLoggedIn(){
     return localStorage.getItem('token');
@@ -13,41 +11,64 @@ alreadyLoggedIn().then(function (token){
 })
 
 btn.addEventListener('click', function () {
-    modal_bg.style.display = 'block';
-    modal.style.display = 'block';
-
     let data = {
+        u_name: document.getElementById('username').value,
+        u_password: document.getElementById('password').value
     }
-    data.u_name = document.getElementById('username').value;
-    data.u_password = document.getElementById('password').value;
     const token = btoa(data.u_name + ':' + data.u_password);
-    localStorage.setItem('token', token);
-
-    fetch('http://localhost:5000/account/login', {
+    fetch('http://localhost:5000/account/login',{
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Basic ' + token
         }
     })
-        .then(response => {
-            if (response.status === 200) {
-                $('.alert').removeClass('loading error success', false).addClass('success');
-                $('.head').text('Success');
-                $(modal).delay(2000).fadeOut(1000);
-                $(modal_bg).delay(2000).fadeOut(1000);
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2900);
-                return response.json();
+        .then((response) => response.json())
+        .then(function (response){
+            console.log(response)
+            if (response.status === 200){
+                if (response.role === 'Admin'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Admin Login Successfully',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            localStorage.setItem('auth', response.role)
+                            localStorage.setItem('token', token)
+                            window.location.href = 'Dashboard/html/dashboard-admin.html';
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Login Successfully',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            localStorage.setItem('auth', response.role)
+                            localStorage.setItem('token', token)
+                            window.location.href = 'index.html';
+                        }
+                    })
+                }
             } else {
-                $('.alert').removeClass('loading error success', false).addClass('error');
-                $(modal).delay(2000).fadeOut(1000);
-                $(modal_bg).delay(2000).fadeOut(1000);
-                $('.head').text('Wrong Username/Password');
-                localStorage.removeItem('token');
-                return response.json();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Login Failed',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                })
             }
-        }). then(response => {
-        console.log(response);
-    })
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 })

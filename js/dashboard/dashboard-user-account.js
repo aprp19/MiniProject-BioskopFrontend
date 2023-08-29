@@ -17,8 +17,8 @@ async function getUserDetails(){
 }
 
 getUserDetails().then(function (json){
-    inputName.placeholder = json['Data'].u_name;
-    inputUsername.placeholder = json['Data'].u_username;
+    inputName.value = json['Data'].u_name;
+    inputUsername.value = json['Data'].u_username;
 })
 
 submitBtn.addEventListener('click', function(){
@@ -27,44 +27,55 @@ submitBtn.addEventListener('click', function(){
         u_username: inputUsername.value,
         u_password: inputPassword.value
     }
-    fetch('http://localhost:5000/account/self',{
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Basic ' + localStorage.getItem('token')
-        },
-        body: JSON.stringify(data)
-    })
-        .then(function (response){
-            if (response.status === 200){
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Update Successfully',
-                    timer: 2000,
-                    timerProgressBar: true,
-                    showConfirmButton: false
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.timer) {
-                        const token = btoa(inputUsername.value + ':' + inputPassword.value);
-                        localStorage.setItem('token', token)
-                        window.location.reload();
-                    }
-                })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Update Failed',
-                    timer: 2000,
-                    timerProgressBar: true
-                })
-            }
 
+    if (!data.u_name || !data.u_username || !data.u_password){
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Please Fill All Fields',
+            timer: 2000,
+            timerProgressBar: true
         })
-        .catch(function (error) {
-            console.log(error);
+    } else {
+        fetch('http://localhost:5000/account/self',{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(data)
         })
+            .then(function (response){
+                if (response.status === 200){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Update Successfully',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
+                    }).then((result) => {
+                        if (result.dismiss === Swal.DismissReason.timer) {
+                            const token = btoa(inputUsername.value + ':' + inputPassword.value);
+                            localStorage.setItem('token', token)
+                            window.location.reload();
+                        }
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Update Failed',
+                        timer: 2000,
+                        timerProgressBar: true
+                    })
+                }
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
 })
 
 deleteBtn.addEventListener('click', function(){

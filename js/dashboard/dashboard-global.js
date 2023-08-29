@@ -1,3 +1,17 @@
+const dashboardMenu = document.getElementById('dashboard-menu')
+if (localStorage['auth'] === 'Admin') {
+    dashboardMenu.innerHTML = `<a href="../../Dashboard/html/dashboard-admin.html" class="menu-link" id="dashboard-nav">
+            <i class="menu-icon tf-icons bx bxs-dashboard"></i>
+            <div data-i18n="Analytics" id="dashboard-text">Dashboard</div>
+          </a>`
+} else {
+    dashboardMenu.innerHTML = `<a href="../../Dashboard/html/dashboard-user.html" class="menu-link" id="dashboard-nav">
+            <i class="menu-icon tf-icons bx bx-cart"></i>
+            <div data-i18n="Analytics" id="dashboard-text">Dashboard</div>
+          </a>`
+}
+
+
 async function getUser(){
     const response = await fetch('http://localhost:5000/account/self', {
         method: 'GET',
@@ -71,7 +85,25 @@ function topUp(id_user, amount) {
             "w_balance": amount
         })
     }).then(responses => {
-        window.location.reload()
-        return responses.json();
+        if (responses.status === 200) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Top Up Successfully, Added Rp. ' + amount + ' to your wallet',
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    window.location.reload();
+                }
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Top Up Failed',
+            })
+        }
     })
 }

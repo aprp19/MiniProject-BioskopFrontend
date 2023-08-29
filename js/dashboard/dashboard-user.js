@@ -30,6 +30,7 @@ getOrders()
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-warning me-1">${order.order_status}</span></td>
+                      <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="payOrder(${order.id_order})">Pay</button>
                         <button type="button" class="btn btn-outline-danger" onclick="cancelOrder(${order.id_order})">Cancel</button>
@@ -42,6 +43,7 @@ getOrders()
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-success me-1">${order.order_status}</span></td>
+                      <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary disabled">Pay</button>
                         <button type="button" class="btn btn-outline-danger disabled">Cancel</button>
@@ -54,6 +56,7 @@ getOrders()
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-danger me-1">${order.order_status}</span></td>
+                      <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary disabled">Pay</button>
                         <button type="button" class="btn btn-outline-danger disabled">Cancel</button>
@@ -76,7 +79,7 @@ getTickets()
                       <td>${ticket.order_seat}</td>
                       <td><span class="badge bg-label-success me-1">${ticket.ticket_status}</span></td>
                       <td>
-                        <button type="button" class="btn btn-outline-primary disabled">See Ticket</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="seeTicket(${ticket.id_ticket})">See Ticket</button>
                       </td>
                     </tr>`
             } else {
@@ -87,13 +90,61 @@ getTickets()
                       <td>${ticket.order_seat}</td>
                       <td><span class="badge bg-label-danger me-1">${ticket.ticket_status}</span></td>
                       <td>
-                        <button type="button" class="btn btn-outline-primary disabled">See Ticket</button>
+                        <button type="button" class="btn btn-outline-danger disabled">See Ticket</button>
                       </td>
                     </tr>`
             }
         })
         document.getElementById('ticket-table').innerHTML = ticketList.join("");
     })
+
+async function seeTicket(id_ticket) {
+    await fetch('http://localhost:5000/tickets/' + id_ticket, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + localStorage.getItem('token')
+        }
+    })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (json) {
+            const data = json['Data']
+
+            Swal.fire({
+                title: 'Ticket Details',
+                html:`
+                <div class="card-body">
+              <form id="formAccountSettings" method="POST" onsubmit="return false">
+                <div class="row">
+                  <div class="mb-3 col-md-12">
+                    <label class="form-label">QR</label>
+                    <label class="form-control"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${data.film_name}" alt="ticket qr"/></label>
+                  </div>
+                  <div class="mb-3 col-md-12">
+                    <label class="form-label">Film Name</label>
+                    <label class="form-control">${data.film_name}</label>
+                  </div>
+                  <div class="mb-3 col-md-12">
+                    <label class="form-label">Date & Time</label>
+                    <label class="form-control">${data.order_date}, ${data.order_time}</label>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">Studio</label>
+                    <label class="form-control">${data.order_studio}</label>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <label class="form-label">Seat</label>
+                    <label class="form-control">${data.order_seat}</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+                `
+            })
+        })
+}
 
 function payOrder(id_order){
     fetch('http://localhost:5000/payments/' + id_order +'/pay', {
