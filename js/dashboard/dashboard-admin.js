@@ -234,12 +234,12 @@ getAllFilm()
                       <td>${film.id_film}</td>
                       <td><img src="${film.film_poster}" style="width: 100px" alt="poster"/></td>
                       <td>${film.film_name}</td>
-                      <td>${film.film_desc}</td>
+                      <td class="text-wrap">${film.film_desc}</td>
                       <td>${film.category}</td>
                       <td>${film.film_duration}</td>
                       <td>${film.film_price}</td>
                       <td>${film.film_selling}</td>
-                      <td>path: ${film.film_poster}</td>
+<!--                      <td>path: ${film.film_poster}</td>-->
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="updatePoster(${film.id_film},'${film.film_name}')">Update Poster</button>
                         <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film})">Edit</button>
@@ -251,12 +251,12 @@ getAllFilm()
                       <td>${film.id_film}</td>
                       <td><img src="${film.film_poster}" style="width: 100px" alt="poster"/></td>
                       <td>${film.film_name}</td>
-                      <td>${film.film_desc}</td>
+                      <td class="text-wrap">${film.film_desc}</td>
                       <td>${film.category}</td>
                       <td>${film.film_duration}</td>
                       <td>${film.film_price}</td>
                       <td>${film.film_selling}</td>
-                      <td>path: ${film.film_poster}</td>
+<!--                      <td>path: ${film.film_poster}</td>-->
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="updatePoster(${film.id_film},'${film.film_name}')">Update Poster</button>
                         <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film})">Edit</button>
@@ -374,7 +374,7 @@ getAllSchedule()
 // we will display the date as DD-MM-YYYY
         let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
         const scheduleList = json['Data'].map((schedule => {
-            if (schedule.schedule_date >= currentDate){
+            if (schedule.schedule_date.slice(0,2) >= currentDay && schedule.schedule_date.slice(3,5) >= currentMonth && schedule.schedule_date.slice(6,10) >= currentYear){
                 return `
                     <tr>
                       <td>${schedule.id_schedule}</td>
@@ -413,6 +413,12 @@ getAllSchedule()
     })
 
 function addSchedule(){
+    const date = new Date();
+    let currentDay= String(date.getDate()).padStart(2, '0');
+    let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+    let currentYear = date.getFullYear();
+// we will display the date as DD-MM-YYYY
+    let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
     const {value: formValues} = Swal.fire({
         title: 'Add Schedule',
         html:
@@ -432,17 +438,20 @@ function addSchedule(){
             +
             '</select>' +
             '<label for="schedule_studio" class="form-label">Studio</label>\n' +
-            '                        <input\n' +
-            '                          type="text"\n' +
-            '                          class="form-control"\n' +
-            '                          id="swal-schedule_studio"\n' +
-            '                        />'+
+            '                        <select class="form-select" id="swal-schedule_studio" aria-label="Default select example">\n' +
+            '                          <option selected value="">Select Studio</option>\n' +
+            '                          <option value="A">A</option>\n' +
+            '                          <option value="B">B</option>\n' +
+            '                          <option value="C">C</option>\n' +
+            '                          <option value="D">D</option>\n' +
+            '                        </select>'+
             '<label for="schedule_date" class="form-label">Date</label>\n' +
             '                        <input\n' +
             '                          type="text"\n' +
             '                          class="form-control date"\n' +
             '                          id="swal-schedule_date"\n' +
             '                          placeholder="Format: DD-MM-YYYY"\n' +
+            `                          value="${currentDate}"\n` +
             '                        />'+
             '<label for="schedule_time" class="form-label">Time</label>\n' +
             '                        <input\n' +

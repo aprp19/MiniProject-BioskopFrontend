@@ -43,8 +43,8 @@ getSchedule()
             let currentYear = date.getFullYear();
 // we will display the date as DD-MM-YYYY
             let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
-
-            if (card.schedule_date >= currentDate) {
+            // card.schedule_date >= currentDate
+            if (card.schedule_date.slice(0,2) >= currentDay && card.schedule_date.slice(3,5) >= currentMonth && card.schedule_date.slice(6,10) >= currentYear){
                 return ` <li class="card" style="height: 750px;">
                 <a class="card-image" href="#" style="background-image: url(${card.film_poster}); height: 500px" onclick="selectMovie('${card.id_film}')">
                     <img src="${card.film_poster}" alt="${card.film_name}"/>
