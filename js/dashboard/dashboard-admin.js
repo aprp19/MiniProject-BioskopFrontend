@@ -71,7 +71,7 @@ getAllUsers()
                       <td>${user.u_role}</td>
                       <td>${user.wallet}</td>
                       <td>
-                        <button type="button" class="btn btn-outline-primary" onclick="topUp(${user.id_user},10000)">Top Up</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="topUpBtn(${user.id_user})">Top Up</button>
                         <button type="button" class="btn btn-outline-primary" onclick="editUser(${user.id_user})">Edit</button>
                       </td>
                     </tr>`

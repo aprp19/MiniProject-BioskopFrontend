@@ -43,37 +43,44 @@ alreadyLoggedIn().then(function (token){
 })
 
 const btn_logout = document.getElementById('logout-button');
-const topUpBtn = document.getElementById('topUpWallet');
+// const topUpBtn = document.getElementById('topUpWallet');
 btn_logout.addEventListener('click', function(){
     localStorage.removeItem('token');
     window.location.href = '../../index.html';
 })
 
-topUpBtn.addEventListener('click', function(){
+
+function topUpBtn(userId){
     Swal.fire({
         title: 'Top Up Wallet ?',
         icon: 'question',
+        input: 'number',
+        inputPlaceholder: 'Rp. 10000',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Top Up'
     }).then((result) => {
         if (result.isConfirmed) {
+            let topupAmount = result.value
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
-                text: 'Top Up Successfully, Added Rp. 10000 to your wallet',
+                text: `Top Up Successfully, Added Rp. ${result.value} to your wallet`,
                 timer: 2000,
                 timerProgressBar: true,
                 showConfirmButton: false
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    topUp(localStorage.getItem('userId'), 10000);
+                    console.log(topupAmount);
+                    topUp(userId, topupAmount);
                 }
             })
         }
     })
-})
+}
+
+
 function topUp(id_user, amount) {
     fetch('http://localhost:5000/wallet/topup/' + id_user, {
         method: 'PUT',
@@ -86,18 +93,7 @@ function topUp(id_user, amount) {
         })
     }).then(responses => {
         if (responses.status === 200) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Top Up Successfully, Added Rp. ' + amount + ' to your wallet',
-                timer: 2000,
-                timerProgressBar: true,
-                showConfirmButton: false
-            }).then((result) => {
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    window.location.reload();
-                }
-            })
+            window.location.reload();
         } else {
             Swal.fire({
                 icon: 'error',
