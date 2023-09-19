@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" href="css/styles.css">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <body>
 <div class="topnav">
@@ -31,10 +31,8 @@
 <h1 style="padding-left: 10rem">Schedule</h1>
 <section class="container" style="background-color: white">
     <div class="search-bar">
-        <input type="search" name="search" pattern=".*\S.*" id="searchDate" placeholder="Search Date: 25-05" required>
-        <button class="search-btn" onclick="searchDate()" id="search-btn" type="submit">
-            <span>Search</span>
-        </button>
+        <input type="text" id="searchDate" onchange="searchDate()" placeholder="Search By Date">
+        <input type="text" name="search" pattern=".*\S.*" id="search" onchange="SearchMenu()" placeholder="Search By Name">
     </div>
     <ul class="card-list" id="card-container">
         <!--JS-->
@@ -61,8 +59,14 @@
     </div>
 </footer>
 <div id="demo"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.13.2/external/jquery/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.13.2/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/global.js"></script>
+<script>
+    $( function() {
+        $( "#searchDate" ).datepicker({ minDate: 0, maxDate: "+5D" });
+    } );
+</script>
 </body>
 </html>

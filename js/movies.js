@@ -19,19 +19,16 @@ function SaveSchedule(selectedSchedule, selectedPrice){
 MovieSchedule()
     .then(function (json){
         const date = new Date();
-        let currentDay= String(date.getDate()).padStart(2, '0');
-        let currentMonth = String(date.getMonth()+1).padStart(2,"0");
-        let currentYear = date.getFullYear();
-// we will display the date as DD-MM-YYYY
-        let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
-
         const scheduleMap = json['Data'].map((schedule)=>{
-            if (schedule.schedule_date >= currentDate){
+            let getTime = JSON.parse(schedule.schedule_time)
+            let getDate = new Date(schedule.schedule_date)
+            getDate.setHours(getTime.slice(0,2), getTime.slice(3,5))
+            if (getDate >= date){
                 return `
            <label for="${schedule.id_schedule}" class="method card">
         <div class="detail">
-        <span>Date: ${schedule.schedule_date}</span>
-        <span>Time: ${schedule.schedule_time}</span>
+        <span>Date: ${schedule.schedule_date.slice(0,16)}</span>
+        <span>Time: ${JSON.parse(schedule.schedule_time)}</span>
         <span>Studio: ${schedule.schedule_studio}</span>
         </div>
 

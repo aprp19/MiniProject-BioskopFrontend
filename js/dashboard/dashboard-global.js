@@ -72,7 +72,6 @@ function topUpBtn(userId){
                 showConfirmButton: false
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log(topupAmount);
                     topUp(userId, topupAmount);
                 }
             })

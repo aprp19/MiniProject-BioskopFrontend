@@ -1,6 +1,6 @@
-tipedata schedule
+tipedata schedule -done
 self amount topup - done
-category checkbox
-datepicker schedule
-pisah dashbioardadmin
-timer payment
+category checkbox - Cancel
+datepicker schedule - done
+pisah dashbioardadmin - done
+timer payment - done

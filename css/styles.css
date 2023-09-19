@@ -744,8 +744,9 @@ input[type='radio'] {
     outline: transparent;
 }
 .search-bar {
-    margin: auto;
-    /*padding: 1.5em;*/
+    /*margin: auto;*/
+    padding: 1.5em;
+    margin-left: 5em;
     justify-content: center;
     max-width: 30em;
 }

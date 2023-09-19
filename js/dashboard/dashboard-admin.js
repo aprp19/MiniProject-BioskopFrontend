@@ -235,14 +235,14 @@ getAllFilm()
                       <td><img src="${film.film_poster}" style="width: 100px" alt="poster"/></td>
                       <td>${film.film_name}</td>
                       <td class="text-wrap">${film.film_desc}</td>
-                      <td>${film.category}</td>
+                      <td class="text-wrap">${film.category}</td>
                       <td>${film.film_duration}</td>
                       <td>${film.film_price}</td>
                       <td>${film.film_selling}</td>
 <!--                      <td>path: ${film.film_poster}</td>-->
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="updatePoster(${film.id_film},'${film.film_name}')">Update Poster</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film})">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film}, '${film.film_name}', '${film.film_desc}')">Edit</button>
                         <button type="button" class="btn btn-outline-danger disabled" onclick="deleteFilm(${film.id_film})">Delete</button>
                       </td>
                     </tr>`
@@ -252,14 +252,14 @@ getAllFilm()
                       <td><img src="${film.film_poster}" style="width: 100px" alt="poster"/></td>
                       <td>${film.film_name}</td>
                       <td class="text-wrap">${film.film_desc}</td>
-                      <td>${film.category}</td>
+                      <td class="text-wrap">${film.category}</td>
                       <td>${film.film_duration}</td>
                       <td>${film.film_price}</td>
                       <td>${film.film_selling}</td>
 <!--                      <td>path: ${film.film_poster}</td>-->
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="updatePoster(${film.id_film},'${film.film_name}')">Update Poster</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film})">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" onclick="editFilm(${film.id_film}, '${film.film_name}', '${film.film_desc}')">Edit</button>
                         <button type="button" class="btn btn-outline-danger" onclick="deleteFilm(${film.id_film})">Delete</button>
                       </td>
                     </tr>`
@@ -368,48 +368,76 @@ function updatePoster(id_film, film_name){
 getAllSchedule()
     .then(function (json){
         const date = new Date();
-        let currentDay= String(date.getDate()).padStart(2, '0');
-        let currentMonth = String(date.getMonth()+1).padStart(2,"0");
-        let currentYear = date.getFullYear();
-// we will display the date as DD-MM-YYYY
-        let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
+//         let currentDay= String(date.getDate()).padStart(2, '0');
+//         let currentMonth = String(date.getMonth()+1).padStart(2,"0");
+//         let currentYear = date.getFullYear();
+// // we will display the date as DD-MM-YYYY
+//         let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
         const scheduleList = json['Data'].map((schedule => {
-            if (schedule.schedule_date.slice(0,2) >= currentDay && schedule.schedule_date.slice(3,5) >= currentMonth && schedule.schedule_date.slice(6,10) >= currentYear){
+            let getTime = JSON.parse(schedule.schedule_time)
+            let getDate = new Date(schedule.schedule_date)
+            getDate.setHours(getTime.slice(0,2), getTime.slice(3,5))
+
+            if (getDate >= date){
                 return `
                     <tr>
                       <td>${schedule.id_schedule}</td>
                       <td>${schedule.film_name}</td>
-                      <td>${schedule.schedule_time} | ${schedule.schedule_date}</td>
+                      <td>${JSON.parse(schedule.schedule_time)} | ${schedule.schedule_date.slice(0,16)}</td>
                       <td>${schedule.schedule_studio}</td>
                       <td>${schedule.schedule_price}</td>
                       <td><span class="badge bg-label-success me-1">Active</span></td>
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="editSchedule(${schedule.id_schedule},'${schedule.film_name}')">Edit</button>
-                        <button type="button" class="btn btn-outline-danger" onclick="deleteSchedule(${schedule.id_schedule})">Delete</button>
+                        <button type="button" class="btn btn-outline-danger disabled" onclick="deleteSchedule(${schedule.id_schedule})">Delete</button>
                       </td>
                     </tr>
             `
             }
 
             // Activate Expired Schedule
-            // else {
-            //     return `
-            //         <tr>
-            //           <td>${schedule.id_schedule}</td>
-            //           <td>${schedule.film_name}</td>
-            //           <td>${schedule.schedule_time} | ${schedule.schedule_date}</td>
-            //           <td>${schedule.schedule_studio}</td>
-            //           <td>${schedule.schedule_price}</td>
-            //           <td><span class="badge bg-label-danger me-1">Expired</span></td>
-            //           <td>
-            //             <button type="button" class="btn btn-outline-primary" onclick="editSchedule(${schedule.id_schedule})">Edit</button>
-            //             <button type="button" class="btn btn-outline-danger" onclick="deleteSchedule(${schedule.id_schedule})">Delete</button>
-            //           </td>
-            //         </tr>
-            // `
-            // }
+            else {
+                return `
+                    <tr>
+                      <td>${schedule.id_schedule}</td>
+                      <td>${schedule.film_name}</td>
+                      <td>${JSON.parse(schedule.schedule_time)} | ${schedule.schedule_date.slice(0,16)}</td>
+                      <td>${schedule.schedule_studio}</td>
+                      <td>${schedule.schedule_price}</td>
+                      <td><span class="badge bg-label-danger me-1">Expired</span></td>
+                      <td>
+                        <button type="button" class="btn btn-outline-primary" onclick="editSchedule(${schedule.id_schedule})">Edit</button>
+                        <button type="button" class="btn btn-outline-danger disabled" onclick="deleteSchedule(${schedule.id_schedule})">Delete</button>
+                      </td>
+                    </tr>
+            `
+            }
         }))
         document.getElementById('schedule-table').innerHTML = scheduleList.join("");
+
+        const ActiveScheduleList = json['Data'].map((schedule => {
+            let getTime = JSON.parse(schedule.schedule_time)
+            let getDate = new Date(schedule.schedule_date)
+            getDate.setHours(getTime.slice(0,2), getTime.slice(3,5))
+
+            if (getDate >= date){
+                return `
+                    <tr>
+                      <td>${schedule.id_schedule}</td>
+                      <td>${schedule.film_name}</td>
+                      <td>${JSON.parse(schedule.schedule_time)} | ${schedule.schedule_date.slice(0,16)}</td>
+                      <td>${schedule.schedule_studio}</td>
+                      <td>${schedule.schedule_price}</td>
+                      <td><span class="badge bg-label-success me-1">Active</span></td>
+                      <td>
+                        <button type="button" class="btn btn-outline-primary" onclick="editSchedule(${schedule.id_schedule},'${schedule.film_name}')">Edit</button>
+                        <button type="button" class="btn btn-outline-danger disabled" onclick="deleteSchedule(${schedule.id_schedule})">Delete</button>
+                      </td>
+                    </tr>
+            `
+            }
+        }))
+        document.getElementById('active-schedule-table').innerHTML = ActiveScheduleList.join("");
     })
 
 function addSchedule(){
@@ -417,8 +445,10 @@ function addSchedule(){
     let currentDay= String(date.getDate()).padStart(2, '0');
     let currentMonth = String(date.getMonth()+1).padStart(2,"0");
     let currentYear = date.getFullYear();
+    let maxDay = Number(currentDay) + 5;
 // we will display the date as DD-MM-YYYY
-    let currentDate = `${currentDay}-${currentMonth}-${currentYear}`;
+    let minDate = currentYear + '-' + currentMonth + '-' + currentDay;
+    let maxDate = currentYear + '-' + currentMonth + '-' + maxDay;
     const {value: formValues} = Swal.fire({
         title: 'Add Schedule',
         html:
@@ -447,28 +477,22 @@ function addSchedule(){
             '                        </select>'+
             '<label for="schedule_date" class="form-label">Date</label>\n' +
             '                        <input\n' +
-            '                          type="text"\n' +
+            '                          type="datetime-local"\n' +
             '                          class="form-control date"\n' +
             '                          id="swal-schedule_date"\n' +
-            '                          placeholder="Format: DD-MM-YYYY"\n' +
-            `                          value="${currentDate}"\n` +
-            '                        />'+
-            '<label for="schedule_time" class="form-label">Time</label>\n' +
-            '                        <input\n' +
-            '                          type="text"\n' +
-            '                          class="form-control"\n' +
-            '                          id="swal-schedule_time"\n' +
-            '                          placeholder="Format: HH:MM"\n' +
+            `                          min="${minDate}T00:00"\n` +
+            `                          max="${maxDate}T00:00"\n` +
             '                        />',
         focusConfirm: false,
         confirmButtonText: 'Save Changes',
         preConfirm: async () => {
             const id_film = Swal.getPopup().querySelector('#swal-film_id').value
             const schedule_studio = Swal.getPopup().querySelector('#swal-schedule_studio').value
-            const schedule_date = Swal.getPopup().querySelector('#swal-schedule_date').value
-            const schedule_time = Swal.getPopup().querySelector('#swal-schedule_time').value
+            const getDate = Swal.getPopup().querySelector('#swal-schedule_date').value
+            const schedule_date = getDate.slice(0,10)
+            const schedule_time = getDate.slice(11,16)
 
-            if (!id_film || !schedule_studio || !schedule_date || !schedule_time) {
+            if (!id_film || !schedule_studio || !getDate) {
                 Swal.showValidationMessage(`Please fill all form`)
             }
             return {
@@ -703,6 +727,7 @@ function addFilm(){
                     })
             +
             '</select>' +
+            '<label for="swal-category" class="form-label text-muted">Tips: Hold Ctrl to select more than one category</label><br>\n' +
             '<label for="film_duration" class="form-label">Duration</label>\n' +
             '                        <input\n' +
             '                          type="text"\n' +
@@ -710,8 +735,9 @@ function addFilm(){
             '                          id="swal-film_duration"\n' +
             '                        />' +
             '<label for="film_price" class="form-label">Price</label>\n' +
-            '                        Rp. <input\n' +
+            '                        <input\n' +
             '                          type="text"\n' +
+            '                          placeholder="Rp."\n' +
             '                          class="form-control"\n' +
             '                          id="swal-film_price"\n' +
             '                        />',
@@ -790,7 +816,7 @@ function addFilm(){
     })
 }
 
-function editFilm(id_film) {
+function editFilm(id_film, film_name, film_desc) {
     const {value: formValues} = Swal.fire({
         title: 'Edit Film',
         html:
@@ -806,10 +832,11 @@ function editFilm(id_film) {
             '                        <input\n' +
             '                          type="text"\n' +
             '                          class="form-control"\n' +
+            '                          value="' + film_name + '"\n' +
             '                          id="swal-film_name"\n' +
             '                        />' +
             '<label for="film_desc" class="form-label">Description</label>\n' +
-            '                        <textarea class="form-control" id="swal-film_desc" rows="3"></textarea>' +
+            '                        <textarea class="form-control" id="swal-film_desc" rows="3">' + film_desc + '</textarea>' +
             '<label for="category" class="form-label">Category</label>\n' +
             '<select class="form-select" name="cat[]" multiple id="swal-category">' +
             +
@@ -830,6 +857,7 @@ function editFilm(id_film) {
                     })
             +
             '</select>' +
+            '<label for="swal-category" class="form-label text-muted">Tips: Hold Ctrl to select more than one category</label><br>\n' +
             '<label for="film_duration" class="form-label">Duration</label>\n' +
             '                        <input\n' +
             '                          type="text"\n' +
@@ -837,8 +865,9 @@ function editFilm(id_film) {
             '                          id="swal-film_duration"\n' +
             '                        />' +
             '<label for="film_price" class="form-label">Price</label>\n' +
-            '                        Rp. <input\n' +
+            '                        <input\n' +
             '                          type="text"\n' +
+            '                          placeholder="Rp."\n' +
             '                          class="form-control"\n' +
             '                          id="swal-film_price"\n' +
             '                        />',

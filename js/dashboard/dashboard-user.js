@@ -26,10 +26,11 @@ getOrders()
         if (order.order_status === 'Not Paid'){
             return `<tr>
                       <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${order.film_name}</strong></td>
-                      <td>${order.order_date}, ${order.order_time}</td>
+                      <td>${order.order_date.slice(0,16)}, ${JSON.parse(order.order_time)}</td>
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-warning me-1">${order.order_status}</span></td>
+                      <td>${JSON.parse(order.order_expiration).slice(0,5)}</td>
                       <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary" onclick="payOrder(${order.id_order})">Pay</button>
@@ -39,10 +40,11 @@ getOrders()
         } else if (order.order_status === 'Paid'){
             return `<tr>
                       <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${order.film_name}</strong></td>
-                      <td>${order.order_date}, ${order.order_time}</td>
+                      <td>${order.order_date.slice(0,16)}, ${JSON.parse(order.order_time)}</td>
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-success me-1">${order.order_status}</span></td>
+                      <td>${JSON.parse(order.order_expiration).slice(0,5)}</td>
                       <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary disabled">Pay</button>
@@ -52,10 +54,11 @@ getOrders()
         } else {
             return `<tr>
                       <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${order.film_name}</strong></td>
-                      <td>${order.order_date}, ${order.order_time}</td>
+                      <td>${order.order_date.slice(0,16)}, ${JSON.parse(order.order_time)}</td>
                       <td>${order.order_studio}</td>
                       <td>${order.order_seat}</td>
                       <td><span class="badge bg-label-danger me-1">${order.order_status}</span></td>
+                      <td>${JSON.parse(order.order_expiration).slice(0,5)}</td>
                       <td>Rp. ${order.order_price}</td>
                       <td>
                         <button type="button" class="btn btn-outline-primary disabled">Pay</button>
@@ -74,7 +77,7 @@ getTickets()
             if (ticket.ticket_status === 'Active'){
                 return `<tr>
                       <td>${ticket.film_name}</td>
-                      <td>${ticket.order_date}, ${ticket.order_time}</td>
+                      <td>${ticket.order_date.slice(0,16)}, ${JSON.parse(ticket.order_time)}</td>
                       <td>${ticket.order_studio}</td>
                       <td>${ticket.order_seat}</td>
                       <td><span class="badge bg-label-success me-1">${ticket.ticket_status}</span></td>
@@ -85,7 +88,7 @@ getTickets()
             } else {
                 return `<tr>
                       <td>${ticket.film_name}</td>
-                      <td>${ticket.order_date}, ${ticket.order_time}</td>
+                      <td>${ticket.order_date.slice(0,16)}, ${JSON.parse(ticket.order_time)}</td>
                       <td>${ticket.order_studio}</td>
                       <td>${ticket.order_seat}</td>
                       <td><span class="badge bg-label-danger me-1">${ticket.ticket_status}</span></td>
@@ -128,7 +131,7 @@ async function seeTicket(id_ticket) {
                   </div>
                   <div class="mb-3 col-md-12">
                     <label class="form-label">Date & Time</label>
-                    <label class="form-control">${data.order_date}, ${data.order_time}</label>
+                    <label class="form-control">${data.order_date.slice(0,16)}, ${JSON.parse(data.order_time)}</label>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label class="form-label">Studio</label>
